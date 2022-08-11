@@ -1,19 +1,23 @@
 import Debug from "debug";
-import express, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import chalk from "chalk";
 import docs from "../data/docs";
 
 const debug = Debug("my-docs:wordsController");
 
-const app = express();
+export const getAllDocs = (req: Request, res: Response, next: NextFunction) => {
+  debug(chalk.white("Sending all the docs"));
+  res.status(200).json({ docs });
+  next();
+};
 
-const getAllDocs = app.get(
-  "/things",
-  (req: Request, res: Response, next: NextFunction) => {
-    debug(chalk.white("Sending all the docs"));
-    res.status(200).json({ docs });
-    next();
-  }
-);
+export const getDocById = (req: Request, res: Response, next: NextFunction) => {
+  const id = +Object.keys(req.query)[0];
 
-export default getAllDocs;
+  const chosenDoc = docs.filter((doc) => doc.id === id);
+
+  debug(chalk.white(`Sending the doc ${id}`));
+
+  res.status(200).json({ chosenDoc });
+  next();
+};
