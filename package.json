@@ -7,8 +7,12 @@
     "ts": "tsc",
     "ts:dev": "tsc -w",
     "start": "node .",
+    "postinstall": "tsc",
     "start:dev": "nodemon -q",
     "prepare": "husky install"
+  },
+  "compilerOptions": {
+    "outDir": "dist"
   },
   "keywords": [],
   "author": "",
@@ -33,5 +37,8 @@
     "debug": "^4.3.4",
     "dotenv": "^16.0.1",
     "express": "^4.18.1"
+  },
+  "engines": {
+    "node": "18.4.0"
   }
 }
