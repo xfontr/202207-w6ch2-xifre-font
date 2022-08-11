@@ -1,5 +1,5 @@
-import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
+import Debug from "debug";
 import chalk from "chalk";
 import docs from "../data/docs";
 import createError from "../utils/errors";
@@ -57,6 +57,16 @@ export const deleteDocById = (
 };
 
 export const postDoc = (req: Request, res: Response, next: NextFunction) => {
-  debug(req.body);
-  next(createError(404, "haha nope"));
+  const newDoc: { name: string } = req.body;
+
+  if (!newDoc || !newDoc.name) {
+    next(createError(404, "Not a valid object"));
+    return;
+  }
+
+  const newDocWithId = { id: docs[docs.length - 1].id + 1, name: newDoc.name };
+
+  docs.push(newDocWithId);
+
+  res.status(200).json({ successMessage: `Added the name ${newDoc.name}` });
 };

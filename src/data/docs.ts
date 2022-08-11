@@ -1,6 +1,6 @@
 const docs = [
-  { id: 1, node: "Node" },
-  { id: 2, react: "React" },
+  { id: 1, name: "Node" },
+  { id: 2, name: "React" },
 ];
 
 export default docs;
